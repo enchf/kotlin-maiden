@@ -25,10 +25,14 @@ Run to the CLI
 Run your commands…
 ```
 
-We need a CLI that can:
+A CLI is needed such that can:
 
 * Show a greeting message.
 * Blame against someone.
 * Can show help about the commands.
 * Can be scaled to add more commands.
 
+### Wasted Code
+
+A CLI is created using Java raw code, built using a main
+method.
