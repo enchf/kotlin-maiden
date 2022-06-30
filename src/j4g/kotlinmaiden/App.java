@@ -1,28 +1,24 @@
 package j4g.kotlinmaiden;
 
+import j4g.kotlinmaiden.command.Blame;
+import j4g.kotlinmaiden.command.Greet;
+import j4g.kotlinmaiden.command.Help;
+import j4g.kotlinmaiden.component.Command;
+import j4g.kotlinmaiden.component.Executable;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class App {
 
-    private static final String HELP = "" +
-            "Commands available: \n" +
-            "  help - Show this message \n" +
-            "  greet <name> - Greets a person \n" +
-            "  blame <name> - Blames against someone \n";
-
     public static void main(String...args) {
-        String command = args.length > 0 ? args[0] : "";
+        Map<String, Executable> commands = new HashMap<>();
+        Command[] executables = { new Greet(), new Blame(), new Help() };
+        Executable invalid = commandArgs -> { throw new RuntimeException("Invalid Command"); };
 
-        switch (command) {
-            case "help":
-                System.out.println(HELP);
-                break;
-            case "greet":
-                System.out.println("Hello " + (args.length > 1 ? args[1] : ""));
-                break;
-            case "blame":
-                System.out.println("%&/@$ " + (args.length > 1 ? args[1] : ""));
-                break;
-            default:
-                throw new RuntimeException("Unknown command: " + command);
-        }
+        Arrays.stream(executables).forEach(command -> commands.put(command.id(), command));
+
+        commands.getOrDefault(args[0], invalid).accept(args);
     }
 }
