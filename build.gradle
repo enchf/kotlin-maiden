@@ -1,0 +1,9 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+
+    id 'application'
+}
+
+application {
+    mainClass = 'j4g.kotlinmaiden.AppKt'
+}
